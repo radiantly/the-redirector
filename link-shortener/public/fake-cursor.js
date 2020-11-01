@@ -11,7 +11,7 @@ body {
 `);
 const fc = document.getElementById("fake-cursor");
 
-$("body").on({
+$("html").on({
     mousemove: e => {
         $("#fake-cursor").show();
         $('#fake-cursor').css({
