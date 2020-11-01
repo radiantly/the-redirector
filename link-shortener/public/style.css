@@ -38,13 +38,14 @@ body {
 
 h1 {
   text-align: center;
-/*   padding: 20px 0; */
   font-family: "Amatic SC";
   font-size: 4rem;
-/*   background: -webkit-linear-gradient(bottom left, #f7384e, #0ebdba);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
   color: #df4862;
+}
+
+h2 {
+  font-family: 'Itim';
+  color: #333;
 }
 
 p {
