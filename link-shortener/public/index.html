@@ -15,10 +15,37 @@
       <p>Since we're spending this halloween at home, here are a few tricks you can prank your friends online with:</p>
       <h2>The Fake Cursor</h2>
       <p> You've probably noticed by now, this is a script that changes your mouse pointer to a pumpkin. <a href="fake-cursor.js">Here's a link</a> to the javascript file to include on your page :)</p>
+      <h2>The Windows Destroyer</h2>
+      <p>Maybe you just want to create havoc on your friend's PC? We have just the thing you need. We've carefully prepared a fantastic vbs script for you—find it <a href="https://github.com/radiantly/box-o-tricks/blob/main/popup-prank/popup-prank.vbs">here</a>.</p>
       <h2>The troll link shortener</h2>
       <p>This link shortener is unlike any you've seen. It sets the meta tags to anything of your choice, which makes it a ripe trick to prank your friends on Discord</p>
-      <h2>The Windows Destroyer</h2>
-      <p>Maybe you just want to create havoc on your friend's system? We might just have something for you.</p>
+      <form class="ui form">
+        <div class="fields">
+          <div class="eight wide field">
+            <label>Original URL</label>
+            <input type="url" name="redirecturl" placeholder="Enter URL to redirect to.." required>
+          </div>
+          <div class="eight wide field">
+            <label>Link name</label>
+            <input type="text" name="linkname" placeholder="Enter link name" required>
+          </div>
+        </div>
+        <div class="fields">
+          <div class="five wide field">
+            <label>Fake Link title</label>
+            <input type="text" name="linktitle" placeholder="Title" />
+          </div>
+          <div class="five wide field">
+            <label>Link Image URL</label>
+            <input type="url" name="linkpicurl" placeholder="Image URL" />
+          </div>
+          <div class="six wide field">
+            <label>Link Description</label>
+            <input type="text" name="linkdesc" placeholder="Link description" />
+          </div>
+        </div>
+        <div class="ui button" tabindex="0">Create link</div>
+      </form>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>

@@ -3,6 +3,7 @@ document.body.insertAdjacentHTML("beforeend", `
 <style>
 #fake-cursor {
     position: fixed;
+    pointer-events: none;
 }
 body {
     cursor: none !important;
@@ -14,8 +15,8 @@ $("body").on({
     mousemove: e => {
         $("#fake-cursor").show();
         $('#fake-cursor').css({
-            left: e.pageX,
-            top: e.pageY
+            left: e.pageX - 10,
+            top: e.pageY - 10
         });
     },
     mouseout: e => {
