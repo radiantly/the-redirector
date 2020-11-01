@@ -21,11 +21,11 @@ body {
   linear-gradient(to bottom right, #FC354C, #0ABFBC);
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 5vw;
 }
 
 .container {
-  height: 100%;
   max-width: 90vw;
   width: 70ch;
   background-color: white;
@@ -33,7 +33,7 @@ body {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 30px 20px 50px 20px;
 }
 
 h1 {
