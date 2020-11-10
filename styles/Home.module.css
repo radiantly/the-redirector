@@ -23,7 +23,7 @@
   color: #333;
 }
 
-.container p {
+.container > p {
   font-family: Itim;
   font-size: 20px;
   color: #79454e;
