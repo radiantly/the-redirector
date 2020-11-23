@@ -35,6 +35,7 @@ const testLinkSuffix = async query => {
 };
 
 linkSuffix.addEventListener("input", e => {
+  e.target.value = e.target.value.toLowerCase().replace(/[^a-z0-9_.~-]/g, "-");
   if (!linkSuffix.value) {
     linkSuffixIcon.classList.remove("check", "times");
     linkSuffixWrapper.classList.remove("loading");
@@ -49,6 +50,7 @@ linkSuffix.addEventListener("input", e => {
 linkForm.addEventListener("submit", async e => {
   e.preventDefault();
   if (!$(linkForm).form("is valid")) return false;
+  linkForm.classList.remove("success", "error");
   linkForm.classList.add("loading");
   const formData = {};
   linkForm.querySelectorAll("input").forEach(elem => {
@@ -72,7 +74,7 @@ linkForm.addEventListener("submit", async e => {
   }
 
   linkForm.classList.add("success");
-
+  linkSuffix.readOnly = true;
   return false;
 });
 
@@ -89,5 +91,6 @@ copyLinkBtn.addEventListener("click", async e => {
 const resetFormBtn = document.getElementById("resetFormBtn");
 resetFormBtn.addEventListener("click", async e => {
   linkForm.classList.remove("success", "error");
+  linkSuffix.readOnly = false;
   $(".ui.form").form("reset");
 });

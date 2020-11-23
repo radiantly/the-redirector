@@ -90,12 +90,9 @@ a {
   margin: 0;
 }
 
-.hidden {
-  display: none;
-}
-
 form.success .ui.submit.button,
-form:not(.success) .succ {
+form:not(.success) .succ,
+form.success .hiddenSuccessField {
   display: none !important;
 }
 
