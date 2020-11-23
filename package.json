@@ -1,16 +1,19 @@
 {
-  "name": "routing-prank",
-  "version": "0.1.0",
   "private": true,
+  "name": "the-redirector",
+  "version": "1.0.0",
+  "description": "A template for kick starting a Cloudflare Workers project",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write '**/*.{js,css,json,md}'",
+    "build": "node staticpack.js worker.js index.js",
+    "dev": "(trap 'kill 0' SIGINT; node staticpack.js worker.js index.js --watch & wrangler dev)",
+    "preview": "(trap 'kill 0' SIGINT; node staticpack.js worker.js index.js --watch & wrangler preview --watch)"
   },
-  "dependencies": {
-    "next": "10.0.1",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-google-recaptcha": "^2.1.0"
+  "author": "radiantly <44368997+radiantly@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.18.2"
   }
 }

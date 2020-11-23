@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Redirector</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Amatic+SC&family=Itim&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>The Redirector</h1>
+      <p>
+        The Redirector is a custom metadata link redirect tool. Basically, it sets the meta tags
+        that's used to show link previews in apps like WhatsApp, Discord or Slack. Hands down the
+        easiest tool to prank your friends with.
+      </p>
+      <h2>Try it out below ;)</h2>
+      <form id="linkForm" class="ui form" onsubmit="return false">
+        <div class="field required">
+          <label for="linkRedirect">URL to redirect to</label>
+          <input
+            id="linkRedirect"
+            type="url"
+            placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          />
+        </div>
+        <div class="field required">
+          <label for="linkSuffix">Link</label>
+          <div id="linkSuffixWrapper" class="ui labeled input icon">
+            <div class="ui label linkSuffixLabel">/</div>
+            <input id="linkSuffix" type="text" placeholder="link-name" />
+            <i id="linkSuffixIcon" class="icon"></i>
+          </div>
+        </div>
+        <div class="fields">
+          <div class="eight wide field">
+            <label for="linkTitle">Link title</label>
+            <input id="linkTitle" type="text" placeholder="New Nobel Prize Awarded" />
+          </div>
+          <div class="eight wide field">
+            <label for="linkName">Site name</label>
+            <input id="linkName" type="text" placeholder="Stack Overflow" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="linkDesc">Link description</label>
+          <input
+            id="linkDesc"
+            type="text"
+            placeholder="After years of research, scientists have determined that we happen to be humans"
+          />
+        </div>
+        <div class="field">
+          <label for="linkImageUrl">Link thumbnail</label>
+          <input id="linkImageUrl" type="text" placeholder="https://totallylegit.com/real.png" />
+        </div>
+        <div class="ui error message">
+          <div class="header">Unsuccessful</div>
+          <p id="errorMsg">An error occured</p>
+        </div>
+        <div class="ui success message">
+          <div class="header">Success</div>
+          <p>The redirect has been successfully created!</p>
+        </div>
+        <button class="ui submit button">Create redirect</button>
+        <div id="copyLinkBtn" class="succ ui vertical animated button">
+          <div class="visible content">Copy link</div>
+          <div class="hidden content">
+            <i class="paste arrow icon"></i>
+          </div>
+        </div>
+        <a class="succ" href="https://github.com/radiantly/the-redirector">
+          <div class="ui fade animated button" tabindex="0">
+            <div class="visible content">Star this project</div>
+            <div class="hidden content">
+              <i class="star icon"></i>
+            </div>
+          </div>
+        </a>
+        <div id="resetFormBtn" class="succ ui button" tabindex="0">Create another redirect</div>
+      </form>
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
+      <script src="script.js"></script>
+    </div>
+  </body>
+</html>

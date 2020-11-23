@@ -1,0 +1,8 @@
+name = "the-redirector"
+type = "javascript"
+account_id = ""
+api_token = ""
+workers_dev = true
+kv_namespaces = [
+  { binding = "REDIRECTS", id = "", preview_id = "" }
+]

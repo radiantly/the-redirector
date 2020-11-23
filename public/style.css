@@ -1,10 +1,9 @@
 html,
 body {
-  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  height: 100%;
+  padding: 0;
+  min-height: 100vh;
+  height: initial;
 }
 
 body {
@@ -48,7 +47,6 @@ body {
   justify-content: center;
   align-items: center;
   padding: min(5vw, 5vh);
-  min-width: fit-content;
 }
 
 a {
@@ -58,4 +56,51 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.container {
+  max-width: 90vw;
+  width: 70ch;
+  background-color: white;
+  border-radius: 7px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.container h1 {
+  text-align: center;
+  font-family: "Amatic SC";
+  font-size: 4rem;
+  color: #df4862;
+  margin: 0;
+  margin: auto;
+}
+
+.container h2 {
+  font-family: Itim;
+  color: #333;
+}
+
+.container > p {
+  font-family: Itim;
+  font-size: 20px;
+  color: #79454e;
+  margin: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+form.success .ui.submit.button,
+form:not(.success) .succ {
+  display: none !important;
+}
+
+@media screen and (min-width: 600px) {
+  .linkSuffixLabel::before {
+    content: "${origin}";
+  }
 }

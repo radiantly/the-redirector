@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${ linkTitle || "Loading.." }</title>
+    <meta property="og:site_name" content="${ linkName }" />
+    <meta property="og:title" content="${ linkTitle }" />
+    <meta property="og:description" content="${ linkDesc }" />
+    <meta property="og:image" content="${ linkImageUrl }" />
+  </head>
+  <body>
+    Loading..
+    <script>
+      window.location.href = "${ linkRedirect }";
+    </script>
+  </body>
+</html>
