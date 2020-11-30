@@ -12,6 +12,11 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: 14
+      - name: Build bundle
+        run: node staticpack.js worker.js index.js
       - name: Publish
         uses: cloudflare/wrangler-action@1.3.0
         with:

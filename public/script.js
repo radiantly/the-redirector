@@ -94,3 +94,5 @@ resetFormBtn.addEventListener("click", async e => {
   linkSuffix.readOnly = false;
   $(".ui.form").form("reset");
 });
+
+console.info("A project by @radiantly");

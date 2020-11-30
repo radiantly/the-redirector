@@ -46,7 +46,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: min(5vw, 5vh);
+  padding: 5vmin;
 }
 
 a {
