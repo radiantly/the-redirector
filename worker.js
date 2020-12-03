@@ -3,7 +3,8 @@ addEventListener("fetch", event => {
 });
 
 async function handleRequest(request) {
-  const { method, url } = request;
+  const { method, url, cf, headers } = request;
+  // console.log(cf, headers);
   const generateJSONResponse = (json, options = {}) =>
     new Response(JSON.stringify(json), {
       headers: {
@@ -34,17 +35,21 @@ async function handleRequest(request) {
       return generateJSONResponse({ success: true, exists: !!result });
     }
 
-    const linkSuffix = pathname.split("/", 2)[1];
+    const linkParts = pathname.split("/", 3);
+    const linkSuffix = linkParts[1];
     const linkInfo = await REDIRECTS.get(linkSuffix);
     console.log(linkInfo);
     if (linkInfo === null)
       return generateJSONResponse({ success: false, error: "Page not found" }, { status: 404 });
     const { linkRedirect, linkTitle, linkName, linkDesc, linkImageUrl } = JSON.parse(linkInfo);
+    const finalRedirect = linkParts[2]
+      ? new URL(linkParts[2], linkRedirect).toString()
+      : linkRedirect;
     if (linkTitle || linkName || linkDesc || linkImageUrl)
       return new Response(`import public/redirect.html`, {
         headers: { "content-type": "text/html;charset=UTF-8" }
       });
-    return Response.redirect(linkRedirect, 301);
+    return Response.redirect(finalRedirect, 301);
   }
   if (method === "POST") {
     const paramMaxLens = {
@@ -67,6 +72,12 @@ async function handleRequest(request) {
     const { linkRedirect, linkSuffix, linkTitle, linkName, linkDesc, linkImageUrl } = reqObj;
     if (!linkRedirect || !linkSuffix)
       return generateJSONResponse({ success: false }, { status: 400 });
+
+    if (linkSuffix.match(/[:/?]/))
+      return generateJSONResponse(
+        { success: false, error: "Invalid characters in link name" },
+        { status: 400 }
+      );
 
     if ((await REDIRECTS.get(linkSuffix)) !== null)
       return generateJSONResponse({ success: false, error: "Already exists" }, { status: 409 });
