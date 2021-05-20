@@ -3,8 +3,7 @@ addEventListener("fetch", event => {
 });
 
 async function handleRequest(request) {
-  const { method, url, cf, headers } = request;
-  // console.log(cf, headers);
+  const { method, url } = request;
   const generateJSONResponse = (json, options = {}) =>
     new Response(JSON.stringify(json), {
       headers: {
@@ -37,11 +36,10 @@ async function handleRequest(request) {
 
     const linkParts = pathname.split("/", 3);
     const linkSuffix = linkParts[1];
-    const linkInfo = await REDIRECTS.get(linkSuffix);
-    console.log(linkInfo);
+    const linkInfo = await REDIRECTS.get(linkSuffix, { type: "json" });
     if (linkInfo === null)
       return generateJSONResponse({ success: false, error: "Page not found" }, { status: 404 });
-    const { linkRedirect, linkTitle, linkName, linkDesc, linkImageUrl } = JSON.parse(linkInfo);
+    const { linkRedirect, linkTitle, linkName, linkDesc, linkImageUrl } = linkInfo;
     const finalRedirect = linkParts[2]
       ? new URL(linkParts[2], linkRedirect).toString()
       : linkRedirect;

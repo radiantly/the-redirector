@@ -2,6 +2,14 @@
 
 > A blazingly fast link shortener built on CloudFlare Workers KV that also allows you to set custom metadata to the redirected link.
 
+### Custom metadata? What do you mean?
+
+When it comes to messaging apps like Discord, WhatsApp or Slack, you're probably familiar with the fact that when you send a link in chat, a link preview is generated. But what if I told you—_the link preview is a lie!_ Generated link previews actually depend on something called Open Graph meta tags, which this link shortner allows you to conveniently set 😎
+
+Here's a few of examples of how you can set the link previews to anything you'd like it to be.
+
+<img src="./demo/slack.png" height="69"><img src="./demo/whatsapp.png" height="69"><img src="./demo/discord.png" height="69">
+
 ## Installation
 
 1.  [Install Wrangler](https://developers.cloudflare.com/workers/cli-wrangler/install-update)
@@ -48,17 +56,17 @@ wrangler preview
 
 Furthermore, if you use linux, you can use `npm run dev` or `npm run preview` to automatically build and run every time you save a file.
 
-#### Is this project faster than [rishiosaur/ll](https://github.com/rishiosaur/ll)?
-
-Maybe some day. At the moment, my tests show that `ll` is ~200ms faster.
-
 <details>
 <summary><strong>History</strong></summary>
 
-This project first started out as a repo for a list of internet pranks, aptly named `box-of-tricks`, and was built as a project for the MLH Hack-or-treat hackathon by Team Cheesy ([me](https://github.com/radiantly) and my friend [Jason](https://github.com/Jason13201)). We came up with 3 pranks, a fake mouse, an infinite app opener vb script, and the redirect prank (inspired from [jere-mie/routing-prank](https://github.com/jere-mie/routing-prank)). For the redirect prank, we used CockroachDB (one of the sponsor technologies) but never got it completely working.
+This project first started out as a repo for a list of internet pranks, aptly named `box-of-tricks`, and was built as a project for the MLH Hack-or-treat hackathon by Team Cheesy (comprising of my friend [Jason](https://github.com/Jason13201) and [I](https://github.com/radiantly)). We came up with 3 pranks, a fake mouse, an infinite app opener vb script, and the redirect prank (inspired from [jere-mie/routing-prank](https://github.com/jere-mie/routing-prank)). For the redirect prank, we used CockroachDB (one of the sponsor technologies) but never got it completely working.
 
 I dearly wanted to get the redirect prank working, so I rewrote the logic with Next.js and Airtable. This just so happened to be the wrong tool for the job with multiple caveats. There were issues generating the redirect page, and it frankly wasn't fast enough.
 
 The project was then moved to CloudFlare workers.
 
 </details>
+
+## License
+
+MIT License.
