@@ -6,14 +6,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write '**/*.{js,css,json,md}'",
-    "build": "node staticpack.js worker.js index.js",
-    "dev": "(trap 'kill 0' SIGINT; node staticpack.js worker.js index.js --watch & wrangler dev)",
-    "preview": "(trap 'kill 0' SIGINT; node staticpack.js worker.js index.js --watch & wrangler preview --watch)"
+    "build": "node staticpack.js src/worker.js index.js",
+    "dev": "wrangler dev)",
+    "preview": "wrangler preview --watch"
   },
-  "author": "radiantly <44368997+radiantly@users.noreply.github.com>",
+  "author": "radiantly",
   "license": "MIT",
   "devDependencies": {
-    "prettier": "^1.18.2"
+    "prettier": "2.3.0"
   }
 }
