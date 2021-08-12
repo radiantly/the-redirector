@@ -5,10 +5,10 @@ $(".ui.form").form({
     linkTitle: ["maxLength[64]"],
     linkName: ["maxLength[64]"],
     linkDesc: ["maxLength[512]"],
-    linkImageUrl: ["maxLength[512]"]
+    linkImageUrl: ["maxLength[512]"],
   },
   on: "blur",
-  inline: true
+  inline: true,
 });
 
 const linkForm = document.getElementById("linkForm");
@@ -35,7 +35,7 @@ const testLinkSuffix = async query => {
 };
 
 linkSuffix.addEventListener("input", e => {
-  e.target.value = e.target.value.toLowerCase().replace(/[^a-z0-9_.~-]/g, "-");
+  e.target.value = e.target.value.replace(/[^a-z0-9_.~-]/gi, "-");
   if (!linkSuffix.value) {
     linkSuffixIcon.classList.remove("check", "times");
     linkSuffixWrapper.classList.remove("loading");
@@ -61,9 +61,9 @@ linkForm.addEventListener("submit", async e => {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData)
+    body: JSON.stringify(formData),
   }).then(res => res.json());
   console.log(response);
   linkForm.classList.remove("loading", "success", "error");
@@ -84,7 +84,7 @@ copyLinkBtn.addEventListener("click", async e => {
   $("body").toast({
     title: "Success",
     message: "Link copied to clipboard",
-    showProgress: "bottom"
+    showProgress: "bottom",
   });
 });
 

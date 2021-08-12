@@ -7,23 +7,23 @@ async function handleRequest(request) {
   const generateJSONResponse = (json, options = {}) =>
     new Response(JSON.stringify(json), {
       headers: {
-        "content-type": "application/json;charset=UTF-8"
+        "content-type": "application/json;charset=UTF-8",
       },
-      ...options
+      ...options,
     });
   if (method === "GET") {
     const { pathname, origin } = new URL(url);
     if (pathname === "/")
       return new Response(`import public/index.html`, {
-        headers: { "content-type": "text/html;charset=UTF-8" }
+        headers: { "content-type": "text/html;charset=UTF-8" },
       });
     if (pathname === "/script.js")
       return new Response(`import public/script.js`, {
-        headers: { "content-type": "application/javascript;charset=UTF-8" }
+        headers: { "content-type": "application/javascript;charset=UTF-8" },
       });
     if (pathname === "/style.css")
       return new Response(`import public/style.css`, {
-        headers: { "content-type": "text/css;charset=UTF-8" }
+        headers: { "content-type": "text/css;charset=UTF-8" },
       });
     console.log(pathname);
     if (pathname.startsWith("/exists/")) {
@@ -36,7 +36,11 @@ async function handleRequest(request) {
 
     const linkParts = pathname.split("/", 3);
     const linkSuffix = linkParts[1];
-    const linkInfo = await REDIRECTS.get(linkSuffix, { type: "json" });
+    const linkInfo =
+      (await REDIRECTS.get(linkSuffix, { type: "json" })) ??
+      (linkSuffix != linkSuffix.toLowerCase()
+        ? await REDIRECTS.get(linkSuffix.toLowerCase(), { type: "json" })
+        : null);
     if (linkInfo === null)
       return generateJSONResponse({ success: false, error: "Page not found" }, { status: 404 });
     const { linkRedirect, linkTitle, linkName, linkDesc, linkImageUrl } = linkInfo;
@@ -45,7 +49,7 @@ async function handleRequest(request) {
       : linkRedirect;
     if (linkTitle || linkName || linkDesc || linkImageUrl)
       return new Response(`import public/redirect.html`, {
-        headers: { "content-type": "text/html;charset=UTF-8" }
+        headers: { "content-type": "text/html;charset=UTF-8" },
       });
     return Response.redirect(finalRedirect, 301);
   }
@@ -56,7 +60,7 @@ async function handleRequest(request) {
       linkTitle: 64,
       linkName: 64,
       linkDesc: 512,
-      linkImageUrl: 512
+      linkImageUrl: 512,
     };
     const reqObj = await request.json();
     console.log(reqObj);
@@ -89,7 +93,7 @@ async function handleRequest(request) {
   return generateJSONResponse(
     { success: "unsure" },
     {
-      status: 418
+      status: 418,
     }
   );
 }
