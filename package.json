@@ -7,8 +7,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node staticpack.js src/worker.js index.js",
-    "dev": "wrangler dev)",
-    "preview": "wrangler preview --watch"
+    "dev": "wrangler dev",
+    "preview": "wrangler preview --watch",
+    "publish": "wrangler publish"
   },
   "author": "radiantly",
   "license": "MIT",

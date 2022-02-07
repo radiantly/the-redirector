@@ -46,7 +46,7 @@ async function handleRequest(request) {
     const { linkRedirect, linkTitle, linkName, linkDesc, linkImageUrl } = linkInfo;
     const finalRedirect = linkParts[2]
       ? new URL(linkParts[2], linkRedirect).toString()
-      : linkRedirect;
+      : encodeURI(linkRedirect);
     if (linkTitle || linkName || linkDesc || linkImageUrl)
       return new Response(`import public/redirect.html`, {
         headers: { "content-type": "text/html;charset=UTF-8" },

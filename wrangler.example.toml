@@ -3,6 +3,7 @@ type = "javascript"
 account_id = ""
 api_token = ""
 workers_dev = true
+compatibility_date = "2022-02-07"
 kv_namespaces = [
   { binding = "REDIRECTS", id = "", preview_id = "" }
 ]
