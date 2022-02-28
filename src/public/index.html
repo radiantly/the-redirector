@@ -17,7 +17,111 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css"
     />
-    <link rel="stylesheet" href="style.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        height: initial;
+      }
+
+      body {
+        --c: rgba(255, 255, 255, 0.7);
+        --t: transparent;
+        background-image: repeating-linear-gradient(
+            45deg,
+            var(--c) 0,
+            var(--c) 20px,
+            var(--t) 20px,
+            var(--t) 32px,
+            var(--c) 32px,
+            var(--c) 44px,
+            var(--t) 44px,
+            var(--t) 56px,
+            var(--c) 56px,
+            var(--c) 68px,
+            var(--t) 68px,
+            var(--t) 80px,
+            var(--c) 0
+          ),
+          repeating-linear-gradient(
+            -45deg,
+            var(--c) 0,
+            var(--c) 20px,
+            var(--t) 20px,
+            var(--t) 32px,
+            var(--c) 32px,
+            var(--c) 44px,
+            var(--t) 44px,
+            var(--t) 56px,
+            var(--c) 56px,
+            var(--c) 68px,
+            var(--t) 68px,
+            var(--t) 80px,
+            var(--c) 0
+          ),
+          linear-gradient(to bottom right, #fc354c, #0abfbc);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5vmin;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      .container {
+        max-width: 90vw;
+        width: 70ch;
+        background-color: white;
+        border-radius: 7px;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .container h1 {
+        text-align: center;
+        font-family: "Amatic SC";
+        font-size: 4rem;
+        color: #df4862;
+        margin: 0;
+        margin: auto;
+      }
+
+      .container h2 {
+        font-family: Itim;
+        color: #333;
+      }
+
+      .container > p {
+        font-family: Itim;
+        font-size: 20px;
+        color: #79454e;
+        margin: 0;
+      }
+
+      form.success .ui.submit.button,
+      form:not(.success) .succ,
+      form.success .hiddenSuccessField {
+        display: none !important;
+      }
+
+      @media screen and (min-width: 600px) {
+        .linkSuffixLabel::before {
+          content: "${origin}";
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -94,7 +198,110 @@
       </form>
       <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
-      <script src="script.js"></script>
+      <script>
+        $(".ui.form").form({
+          fields: {
+            linkRedirect: ["empty", "url", "maxLength[512]"],
+            linkSuffix: ["empty", "maxLength[256]"],
+            linkTitle: ["maxLength[64]"],
+            linkName: ["maxLength[64]"],
+            linkDesc: ["maxLength[512]"],
+            linkImageUrl: ["maxLength[512]"],
+          },
+          on: "blur",
+          inline: true,
+        });
+
+        const linkForm = document.getElementById("linkForm");
+        const linkSuffix = document.getElementById("linkSuffix");
+        const linkSuffixWrapper = document.getElementById("linkSuffixWrapper");
+        const linkSuffixIcon = document.getElementById("linkSuffixIcon");
+
+        const errorMsgElem = document.getElementById("errorMsg");
+
+        let testLinkSuffixTimeout;
+
+        const testLinkSuffix = async query => {
+          const response = await fetch(`/exists/${query}`).then(res => res.json());
+          if (linkSuffix.value !== query) return;
+          linkSuffixWrapper.classList.remove("loading");
+          console.log(response);
+          linkSuffixIcon.classList.remove("times", "red", "check", "green", "grey");
+          if (response.success && response.exists === false) {
+            linkSuffixIcon.classList.add("check", "green");
+          } else {
+            linkSuffixIcon.classList.add("times", "red");
+            $(linkForm).form(
+              "add prompt",
+              "linkSuffix",
+              `Choose another link, ${query} has been taken`
+            );
+          }
+        };
+
+        linkSuffix.addEventListener("input", e => {
+          e.target.value = e.target.value.replace(/[^a-z0-9_.~-]/gi, "-");
+          if (!linkSuffix.value) {
+            linkSuffixIcon.classList.remove("check", "times");
+            linkSuffixWrapper.classList.remove("loading");
+            return;
+          }
+          linkSuffixIcon.classList.add("times", "grey");
+          linkSuffixWrapper.classList.add("loading");
+          clearTimeout(testLinkSuffixTimeout);
+          testLinkSuffixTimeout = setTimeout(testLinkSuffix, 750, linkSuffix.value);
+        });
+
+        linkForm.addEventListener("submit", async e => {
+          e.preventDefault();
+          if (!$(linkForm).form("is valid")) return false;
+          linkForm.classList.remove("success", "error");
+          linkForm.classList.add("loading");
+          const formData = {};
+          linkForm.querySelectorAll("input").forEach(elem => {
+            formData[elem.id] = elem.value;
+          });
+          console.log(formData);
+          const response = await fetch("/", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }).then(res => res.json());
+          console.log(response);
+          linkForm.classList.remove("loading", "success", "error");
+          if (response.success !== true) {
+            errorMsgElem.innerText = response.error || "An error occurred";
+            linkForm.classList.add("error");
+            return;
+          }
+
+          linkForm.classList.add("success");
+          linkSuffix.readOnly = true;
+          return false;
+        });
+
+        const copyLinkBtn = document.getElementById("copyLinkBtn");
+        copyLinkBtn.addEventListener("click", async e => {
+          await navigator.clipboard.writeText(`${location.origin}/${linkSuffix.value}`);
+          $("body").toast({
+            title: "Success",
+            message: "Link copied to clipboard",
+            showProgress: "bottom",
+          });
+        });
+
+        const resetFormBtn = document.getElementById("resetFormBtn");
+        resetFormBtn.addEventListener("click", async e => {
+          linkForm.classList.remove("success", "error");
+          linkSuffix.readOnly = false;
+          $(".ui.form").form("reset");
+        });
+
+        console.info("A project by @radiantly");
+      </script>
     </div>
   </body>
 </html>

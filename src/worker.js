@@ -17,14 +17,6 @@ async function handleRequest(request) {
       return new Response(`import public/index.html`, {
         headers: { "content-type": "text/html;charset=UTF-8" },
       });
-    if (pathname === "/script.js")
-      return new Response(`import public/script.js`, {
-        headers: { "content-type": "application/javascript;charset=UTF-8" },
-      });
-    if (pathname === "/style.css")
-      return new Response(`import public/style.css`, {
-        headers: { "content-type": "text/css;charset=UTF-8" },
-      });
     console.log(pathname);
     if (pathname.startsWith("/exists/")) {
       const query = pathname.split("/", 3)[2];
