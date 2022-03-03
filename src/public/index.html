@@ -15,7 +15,8 @@
     />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.css"
     />
     <style>
       html,
@@ -197,7 +198,7 @@
         <div id="resetFormBtn" class="succ ui button" tabindex="0">Create another redirect</div>
       </form>
       <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.8/dist/semantic.min.js"></script>
       <script>
         $(".ui.form").form({
           fields: {
@@ -213,6 +214,7 @@
         });
 
         const linkForm = document.getElementById("linkForm");
+        const linkRedirect = document.getElementById("linkRedirect");
         const linkSuffix = document.getElementById("linkSuffix");
         const linkSuffixWrapper = document.getElementById("linkSuffixWrapper");
         const linkSuffixIcon = document.getElementById("linkSuffixIcon");
@@ -238,6 +240,27 @@
             );
           }
         };
+
+        let warnedUser = false;
+        const warnList = [
+          /pbs\.twimg\.com/,
+          /p...hub\.com/,
+          /xhcdn\.com/,
+          /m...spin\.com/,
+          /l....party\.com/,
+        ];
+
+        linkRedirect.addEventListener("input", e => {
+          if (!warnedUser && warnList.some(regex => regex.test(e.target.value))) {
+            $("body").toast({
+              displayTime: "auto",
+              title: "Note",
+              message:
+                "NSFW redirect urls are against site policy and may be removed without notice",
+            });
+            warnedUser = true;
+          }
+        });
 
         linkSuffix.addEventListener("input", e => {
           e.target.value = e.target.value.replace(/[^a-z0-9_.~-]/gi, "-");
